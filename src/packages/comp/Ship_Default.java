@@ -11,7 +11,7 @@ public class Ship_Default extends Entity{
 	public Ship_Default(double x, double y){
 		super(x, y, 32, 32, "player_default", 0, 0, 0, 0);
 		this.maxHealth = 1000;
-		this.health = maxHealth;
+		this.health = this.maxHealth;
 	}
 	
 	@Override
@@ -24,6 +24,17 @@ public class Ship_Default extends Entity{
 		
 		// use the super act
 		super.act(stage);
+	}
+	
+	// adds to acceleration
+	public void accelerate(double aX, double aY){
+		accelX += aX;
+		accelY += aY;
+	}
+	
+	public void addVel(double vX, double vY){
+		velX += vX;
+		velY += vY;
 	}
 	
 	// do damage to THIS ship

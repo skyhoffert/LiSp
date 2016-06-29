@@ -74,6 +74,7 @@ public class Main implements Runnable {
 		pane = frame.getContentPane();
 		pane.add(panel);
 		frame.setVisible(true);
+		pane.setVisible(true);
 		
 		//adding input
 		input = new InputHandler();

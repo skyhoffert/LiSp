@@ -2,29 +2,24 @@ package packages.comp;
 
 import java.awt.event.KeyEvent;
 
+import packages.abilities.*;
 import packages.main.Main;
 import packages.stage.GameStage;
 
 public class Ship_Player extends Ship_Default
 {
-	// all cooldowns are in microseconds
-	private int cooldown_Q, cooldown_W, cooldown_E, cooldown_R;
 	protected int cooldown_standard_attack;
 	protected long time_last_attack;
-	private long time_last_Q, time_last_W, time_last_E, time_last_R;
+	protected Ability abil_Q, abil_W, abil_E, abil_R;
 	
 	public Ship_Player(double x, double y){
 		super(x, y);
-		this.cooldown_Q = 10000;
-		this.cooldown_W = 20000;
-		this.cooldown_E = 15000;
-		this.cooldown_R = 50000;
-		this.cooldown_standard_attack = 500;
+		this.cooldown_standard_attack = 1000;
 		this.time_last_attack = 0;
-		this.time_last_Q = 0;
-		this.time_last_W = 0;
-		this.time_last_E = 0;
-		this.time_last_R = 0;
+		this.abil_Q = new Ability_Laser_Burst_Shot();
+		this.abil_W = new Ability_Side_Dodge();
+		this.abil_E = new Ability_Locked();
+		this.abil_R = new Ability_Locked();
 	}
 	
 	public void act(GameStage stage)
@@ -57,6 +52,41 @@ public class Ship_Player extends Ship_Default
 				stage.addLaser(new Laser_Default(posX, posY, Math.cos(angle) * 2, Math.sin(angle) * 2));
 			}
 		}
+		
+		// abilities
+		// Q
+		if (Main.keys[KeyEvent.VK_Q]){
+			if (abil_Q.isReady()){
+				System.out.println("Q - ing");
+				abil_Q.activate();
+			}
+		}
+		abil_Q.act(stage, this);
+		// W
+		if (Main.keys[KeyEvent.VK_W]){
+			if (abil_W.isReady()){
+				System.out.println("W - ing");
+				abil_W.activate();
+			}
+		}
+		abil_W.act(stage, this);
+		// E
+		if (Main.keys[KeyEvent.VK_E]){
+			if (abil_E.isReady()){
+				System.out.println("E - ing");
+				abil_E.activate();
+			}
+		}
+		abil_E.act(stage, this);
+		// R
+		if (Main.keys[KeyEvent.VK_R]){
+			if (abil_R.isReady()){
+				System.out.println("R - ing");
+				abil_R.activate();
+			}
+		}
+		abil_R.act(stage, this);
+		
 		// movement
 		if (stage.isRMB){
 			accelX = Math.cos(angle) / 300;
@@ -69,15 +99,6 @@ public class Ship_Player extends Ship_Default
 		}
 		
 		super.act(stage);
-	}
-	
-	public void keyUp(int k){
-		if (k == KeyEvent.VK_Q){
-			if (System.currentTimeMillis() - time_last_Q >= cooldown_Q){
-				System.out.println("Q - ing");
-				time_last_Q = System.currentTimeMillis();
-			}
-		}
 	}
 	
 }

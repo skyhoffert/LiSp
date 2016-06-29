@@ -34,6 +34,7 @@ public class Drawable {
 	// getters
 	public double getX(){ return posX; }
 	public double getY(){ return posY; }
+	public double getAngle(){ return angle; }
 	public double getWidth(){ return width; }
 	public double getHeight(){ return height; }
 	public String getName(){ return name; }

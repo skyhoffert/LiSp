@@ -8,6 +8,7 @@ public class Entity extends Drawable{
 	protected double accelX, accelY;
 	// spinning will go counter-clockwise
 	protected float spinVel;
+	protected double maxVel;
 	
 	public Entity(double x, double y, int w, int h, String s, double vX, double vY, double aX, double aY){
 		super(x, y, w, h, s);
@@ -16,6 +17,7 @@ public class Entity extends Drawable{
 		this.accelX = aX;
 		this.accelY = aY;
 		this.spinVel = 0;
+		this.maxVel = 9999;
 	}
 	
 	public void act(GameStage stage){

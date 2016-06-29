@@ -12,9 +12,16 @@ public class TestLevel extends GameStage{
 		System.out.println("Entering TestLevel...");
 		
 		this.players.add(new Ship_Player(Main.width / 2, Main.height / 2));
-		this.asteroids.add(new Asteroid_Small(Main.width * 3/4, Main.height * 3/4, 25, 25, -.04, .02));
-		this.asteroids.add(new Asteroid_Small(Main.width * 1/4, Main.height * 1/4, 25, 25, .02, .04));
-		this.asteroids.add(new Asteroid_Small(Main.width * 3/4, Main.height * 2/4, 25, 25, .02, .03));
+		
+		for (int i = 0; i < 20; i++){
+			this.asteroids.add(new Asteroid_Small(Main.width * Math.random(), Main.height * Math.random(), 25, 25, .25 - Math.random() / 2, .25 - Math.random() / 2));			
+		}
+		//this.asteroids.add(new Asteroid_Small(Main.width * 3/4, Main.height * 3/4, 25, 25, -.04, .02));
+		//this.asteroids.add(new Asteroid_Small(Main.width * 1/4, Main.height * 1/4, 25, 25, .02, .04));
+		//this.asteroids.add(new Asteroid_Small(Main.width * 3/4, Main.height * 2/4, 25, 25, .02, .03));
+		//this.asteroids.add(new Asteroid_Small(Main.width * 1/4, Main.height * 3/4, 25, 25, .04, -.02));
+		//this.asteroids.add(new Asteroid_Small(Main.width * 1/8, Main.height * 1/8, 25, 25, .06, .06));
+		//this.asteroids.add(new Asteroid_Small(Main.width * 5/4, Main.height * 1/8, 25, 25, -.05, .06));
 	}
 
 	@Override
@@ -62,12 +69,6 @@ public class TestLevel extends GameStage{
 	public void keyUp(int k) {
 		// TODO Auto-generated method stub
 		super.keyUp(k);
-		
-		for (int i = 0; i < players.size(); i++){
-			if (players.get(i) instanceof Ship_Player){
-				((Ship_Player)(players.get(i))).keyUp(k);
-			}
-		}
 	}
 
 	@Override

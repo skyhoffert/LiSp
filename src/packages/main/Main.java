@@ -22,8 +22,6 @@ public class Main implements Runnable {
 	
 	// global game variables
 	public static int volume;
-	
-	private static Stack<UserInputChange> inputChangeStack;
 		
 	// privates
 	private static Stage stage;
@@ -77,7 +75,6 @@ public class Main implements Runnable {
 		volume = -8;
 		running = true;
 		stage = new MainMenu();
-		this.inputChangeStack = new Stack<UserInputChange>();
 	}
 	
 	public static void main(String Args[]){
@@ -155,15 +152,12 @@ public class Main implements Runnable {
 	
 	// getters
 	public static Stage getStage(){ return stage; }
-	// input states
-	public static void addInputChange(UserInputChange inputChange){
-		inputChangeStack.add(inputChange);
-	}
 
 	// TODO
 	// first step is process input
 	private void processInput(){
 		// something like
+		// input.getStack
 		// while !stack.isempty
 		// 		stage.processinput
 		//		// this will call entities.processinput

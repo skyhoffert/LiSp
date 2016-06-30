@@ -19,6 +19,10 @@ public class Operations {
 		return false;
 	}
 	
+	/*
+	 * Both of these methods are deprecated
+	 * The Point class has this static utility
+	 * 
 	public static double findDistance(int x, int y, int xx, int yy){
 		return Math.sqrt(Math.pow((xx - x), 2) + Math.pow((yy - y), 2));
 	}
@@ -26,8 +30,5 @@ public class Operations {
 	public static double findDistance(double x, double y, double xx, double yy){
 		return Math.sqrt(Math.pow((xx - x), 2) + Math.pow((yy - y), 2));
 	}
-	
-	public static double findHypotenuse(double x, double y){
-		return x / Math.cos(Math.atan(y / x)) * Math.signum(x);
-	}
+	*/
 }

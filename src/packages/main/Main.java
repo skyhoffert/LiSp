@@ -1,10 +1,11 @@
 package packages.main;
 
+import java.awt.Point;
 import java.io.File;
 import java.util.Scanner;
-import java.util.Stack;
 
 import javax.swing.JFrame;
+
 import packages.stage.MainMenu;
 import packages.stage.Stage;
 
@@ -136,7 +137,7 @@ public class Main implements Runnable {
 		}
 		*/
 		
-		while(running){
+		while (running) {
 			processInput();
 		}
 

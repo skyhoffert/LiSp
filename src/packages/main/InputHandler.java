@@ -10,6 +10,14 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
+// ***** NOTES *****
+//
+// TODO
+// calls to update should probably incorporate the boolean they return
+// though this shouldn't be a huge deal
+//
+// ***** NOTES *****
+
 public class InputHandler implements FocusListener, MouseListener, MouseMotionListener, MouseWheelListener, KeyListener{
 	
 	// variables
@@ -52,83 +60,60 @@ public class InputHandler implements FocusListener, MouseListener, MouseMotionLi
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		this.mouseDownX = e.getX();
-		this.mouseDownY = e.getY();
+		currentState.adjustInputState(prevState);
 		if (e.getButton() == MouseEvent.BUTTON1){
-			isMouseDownLeft = true;
-			Main.LMBDown(mouseDownX, mouseDownY);
+			currentState.updateMouseButton(0, true);
+		} else if (e.getButton() == MouseEvent.BUTTON2){
+			currentState.updateMouseButton(1, true);
 		} else if (e.getButton() == MouseEvent.BUTTON3){
-			isMouseDownRight = true;
-			Main.RMBDown(mouseDownX, mouseDownY);
+			currentState.updateMouseButton(2, true);
 		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		this.mouseUpX = e.getX();
-		this.mouseUpY = e.getY();
+		currentState.adjustInputState(prevState);
 		if (e.getButton() == MouseEvent.BUTTON1){
-			isMouseDownLeft = false;
-			Main.LMBUp(mouseDownX, mouseDownY);
+			currentState.updateMouseButton(0, false);
+		} else if (e.getButton() == MouseEvent.BUTTON2){
+			currentState.updateMouseButton(1, false);
 		} else if (e.getButton() == MouseEvent.BUTTON3){
-			isMouseDownRight = false;
-			Main.RMBUp(mouseDownX, mouseDownY);
+			currentState.updateMouseButton(2, false);
 		}
 	}
 
 	@Override
 	public void focusGained(FocusEvent e) {
-		 this.isFocused = true;
+		currentState.adjustInputState(prevState);
+		currentState.updateIsFocused(true);
 	}
 
 	@Override
 	public void focusLost(FocusEvent e) {
-		 this.isFocused = false;
-	}
-
-	public void keyPressed(KeyEvent e) {
-		keys[e.getKeyCode()] = true;
-		Main.keyDown(e.getKeyCode());
-	}
-
-	public void keyReleased(KeyEvent e) {
-		keys[e.getKeyCode()] = false;
-		Main.keyUp(e.getKeyCode());
-	}
-
-	public void keyTyped(KeyEvent e) {
-	}
-
-	public int getMouseDownX() {
-		return mouseDownX;
-	}
-
-	public int getMouseDownY() {
-		return mouseDownY;
-	}
-
-	public int getMouseUpX() {
-		return mouseUpX;
-	}
-
-	public int getMouseUpY() {
-		return mouseUpY;
-	}
-	
-	public int getMouseX() {
-		return mouseX;
-	}
-
-	public int getMouseY() {
-		return mouseY;
-	}
-	
-	public boolean getIsFocused(){
-		return isFocused;
+		currentState.adjustInputState(prevState);
+		currentState.updateIsFocused(false);
 	}
 
 	@Override
+	public void keyPressed(KeyEvent e) {
+		currentState.adjustInputState(prevState);
+		currentState.updateKey(e.getKeyCode(), true);
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		currentState.adjustInputState(prevState);
+		currentState.updateKey(e.getKeyCode(), false);
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// NOTE
+		// this probably won't be used
+	}
+	
+	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		
+		System.out.println("Scroll wheel something: " +e.getWheelRotation());
 	}
 }

@@ -23,8 +23,8 @@ public class Drawable {
 		// everyting is scaled by the scale ** Important
 		this.posX = x ;
 		this.posY = y;
-		this.width = (int) (w * Main.scale);
-		this.height = (int) (h * Main.scale);
+		this.width = (int) (w);
+		this.height = (int) (h);
 		this.name = s;
 		this.angle = 0;
 		this.img = ImageFinder.getImage(s);

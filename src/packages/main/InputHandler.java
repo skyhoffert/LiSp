@@ -114,6 +114,8 @@ public class InputHandler implements FocusListener, MouseListener, MouseMotionLi
 	
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		System.out.println("Scroll wheel something: " +e.getWheelRotation());
+		// scroll wheel moves + or - 1
+		currentState.adjustInputState(prevState);
+		currentState.updateMouseScrollWheel(e.getScrollAmount());		
 	}
 }

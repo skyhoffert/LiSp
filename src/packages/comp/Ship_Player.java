@@ -28,6 +28,7 @@ public class Ship_Player extends Ship_Default
 		double val;
 		// TODO
 		// should probably be simplified
+		/*
 		if (Main.mouseX > posX){
 			val = Math.atan((Main.mouseY - posY) / (Main.mouseX - posX));
 			if (Math.abs(val - angle) > .01){
@@ -97,6 +98,7 @@ public class Ship_Player extends Ship_Default
 			accelX = 0;
 			accelY = 0;
 		}
+		*/
 		
 		super.act(stage);
 	}

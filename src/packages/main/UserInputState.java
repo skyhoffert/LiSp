@@ -3,7 +3,6 @@ package packages.main;
 import java.awt.Point;
 
 public class UserInputState {
-
 	// array of the keyboard keys
 	// indices are the KeyEvent.VK_* integer value
 	private boolean keys[];
@@ -14,6 +13,10 @@ public class UserInputState {
 	private Point mouseLocation;
 	private boolean isMouseFocused;
 	private boolean canBeUpdated;
+	// this is a unique one
+	// will be the value the scroll wheel has moved over the whole program
+	private int mouseWheelScrollValue;
+	private int MOUSE_WHEEL_SCROLL_MIN, MOUSE_WHEEL_SCROLL_MAX;
 	
 	// default constructor, just initialize everything to 0
 	public UserInputState(){
@@ -22,6 +25,9 @@ public class UserInputState {
 		this.mouseLocation = new Point(0, 0);
 		this.isMouseFocused = true;
 		this.canBeUpdated = true;
+		this.mouseWheelScrollValue = 0;
+		this.MOUSE_WHEEL_SCROLL_MAX = 100;
+		this.MOUSE_WHEEL_SCROLL_MIN = -100;
 	}
 	
 	// update a key in the array with code and bool
@@ -81,6 +87,19 @@ public class UserInputState {
 		}
 		return false;
 	}
+
+	// update if the mouse wheel was scrolled
+	public boolean updateMouseScrollWheel(int amount){
+		if (canBeUpdated){
+			if (mouseWheelScrollValue + amount < MOUSE_WHEEL_SCROLL_MIN){
+				mouseWheelScrollValue = MOUSE_WHEEL_SCROLL_MIN;
+			} else if (mouseWheelScrollValue + amount > MOUSE_WHEEL_SCROLL_MAX){
+				mouseWheelScrollValue = MOUSE_WHEEL_SCROLL_MAX;
+			}
+			return true;
+		}
+		return false;
+	}
 	
 	// change a given input state to the current one
 	public void adjustInputState(UserInputState yourState){
@@ -93,5 +112,6 @@ public class UserInputState {
 		yourState.mouseLocation = this.mouseLocation;
 		yourState.isMouseFocused = this.isMouseFocused;
 		yourState.canBeUpdated = this.canBeUpdated;
-	}	
+		yourState.mouseWheelScrollValue = this.mouseWheelScrollValue;
+	}
 }

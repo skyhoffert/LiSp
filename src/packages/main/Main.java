@@ -1,13 +1,8 @@
 package packages.main;
 
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Graphics2D;
 import java.io.File;
 import java.util.Scanner;
-
 import javax.swing.JFrame;
-
 import packages.stage.MainMenu;
 import packages.stage.Stage;
 
@@ -63,6 +58,7 @@ public class Main implements Runnable {
 		// adding input
 		input = new InputHandler();
 		frame.addKeyListener(input);
+		frame.addMouseWheelListener(input);
 		// TODO
 		// panel.addMouseListener(input);
 		// panel.addMouseMotionListener(input);

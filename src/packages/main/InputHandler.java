@@ -108,7 +108,7 @@ public class InputHandler implements FocusListener, MouseListener, MouseMotionLi
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		// scroll wheel moves + or - 1
-		inputChangeStack.add(new UserInputChange(UserInputChange.ChangeType.KEY, e.getScrollAmount(), Integer.MAX_VALUE));		
+		inputChangeStack.add(new UserInputChange(UserInputChange.ChangeType.MOUSE_WHEEL, e.getWheelRotation(), Integer.MAX_VALUE));
 	}
 	
 	public Stack<UserInputChange> getInputStack(){ return inputChangeStack; }

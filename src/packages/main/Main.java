@@ -64,6 +64,8 @@ public class Main implements Runnable {
 		// TODO
 		// panel.addMouseListener(input);
 		// panel.addMouseMotionListener(input);
+		frame.addMouseListener(input);
+		frame.addMouseMotionListener(input);
 		frame.addFocusListener(input);
 		
 		// print variables to output
@@ -133,6 +135,10 @@ public class Main implements Runnable {
 			}
 		}
 		*/
+		
+		while(running){
+			processInput();
+		}
 
 		stop();
 	}
@@ -163,6 +169,15 @@ public class Main implements Runnable {
 		//		// this will call entities.processinput
 		//		stack.pop
 		//
+		
+		// testing the input handler
+		while (!input.getInputStack().isEmpty()){
+			System.out.println(input.getInputStack().peek().getType());
+			if (input.getInputStack().peek().getType() == UserInputChange.ChangeType.MOUSE_WHEEL){
+				System.out.println(input.getInputStack().peek().getMouseScrollAmount());
+			}
+			input.getInputStack().pop();
+		}
 	}
 	
 	// TODO

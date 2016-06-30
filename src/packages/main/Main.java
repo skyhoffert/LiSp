@@ -13,68 +13,52 @@ import packages.stage.Stage;
 
 public class Main implements Runnable {
 
-	// frame and panel
-	public static double scale;
 	// wid x height
 	public static int width;
 	public static int height;
-	public static final int SLEEP_TIME = 2;
+	// title of frame
 	public static final String TITLE = "LoL In Space";
 	private static JFrame frame;
-	private static Panel panel;
-	private static Container pane;
 	private static InputHandler input;
+	// reads settings from file
 	private static Scanner inStream;
 	
 	// global game variables
-	public static int mouseX, mouseY;
-	public static int mouseDownX, mouseDownY;
-	public static int mouseUpX, mouseUpY;
 	public static int volume;
-	public static boolean isFocused;
-	public static boolean isMouseDownRight, isMouseDownLeft;
-	public static boolean[] keys;
 		
 	// privates
 	private static Stage stage;
 	private static boolean running;
 	
 	private Main(){
-		//first the instream must grab the size of the window
-		//try to open it
+		// first the instream must grab the size of the window
+		// try to open it
 		try {
 			File file = new File("settings.txt");
 			inStream = new Scanner(file);
 
-			//try reading in info
+			// try reading in info
 			try {
-				//get settings
+				// ignore the word: 'width'
 				inStream.next();
 				width = inStream.nextInt();
+				// ignore the work: 'height'
 				inStream.next();
 				height = inStream.nextInt();
-				inStream.next();
-				scale = inStream.nextInt();
-				
-				//scale it
-				width *= scale;
-				height *= scale;
-			} catch (Exception e){ e.printStackTrace(); }
-			//close it
+			} catch (Exception e){ e.printStackTrace(); stop(); }
+			// close it
 			inStream.close();
-		} catch (Exception e) { e.printStackTrace(); }
+		} catch (Exception e) { e.printStackTrace(); stop(); }
 		
-		
-		//init
+		// init
 		frame = new JFrame(TITLE);
 		frame.setSize(width, height);
 		frame.setUndecorated(true);
 		frame.setLocationRelativeTo(null);
-		panel = new Panel(Color.black);
-		pane = frame.getContentPane();
-		pane.add(panel);
+		// TODO
+		// initialize panel and canvas stuff
+		// make sure it is visible
 		frame.setVisible(true);
-		pane.setVisible(true);
 		
 		//adding input
 		input = new InputHandler();

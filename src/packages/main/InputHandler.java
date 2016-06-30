@@ -7,9 +7,15 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 
-public class InputHandler implements FocusListener, MouseListener, MouseMotionListener, KeyListener{
+public class InputHandler implements FocusListener, MouseListener, MouseMotionListener, MouseWheelListener, KeyListener{
 	
+	// variables
+	// TODO
+	// initialize
+	User_Input_State current_state, prev_state;
 	private int mouseX, mouseY;
 	private int mouseDownX, mouseDownY;
 	private int mouseUpX, mouseUpY;
@@ -121,16 +127,9 @@ public class InputHandler implements FocusListener, MouseListener, MouseMotionLi
 	public boolean getIsFocused(){
 		return isFocused;
 	}
-	
-	public boolean getIsMouseDownRight(){
-		return isMouseDownRight;
-	}
-	
-	public boolean getIsMouseDownLeft(){
-		return isMouseDownLeft;
-	}
 
-	public boolean[] getKeys() {
-		return keys;
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		
 	}
 }

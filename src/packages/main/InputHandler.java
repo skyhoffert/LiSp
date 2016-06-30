@@ -13,48 +13,44 @@ import java.awt.event.MouseWheelListener;
 public class InputHandler implements FocusListener, MouseListener, MouseMotionListener, MouseWheelListener, KeyListener{
 	
 	// variables
-	// TODO
-	// initialize
-	User_Input_State current_state, prev_state;
-	private int mouseX, mouseY;
-	private int mouseDownX, mouseDownY;
-	private int mouseUpX, mouseUpY;
-	private boolean[] keys;
-	private boolean isFocused;
-	private boolean isMouseDownLeft, isMouseDownRight;
+	UserInputState currentState, prevState;
 
 	public InputHandler(){
-		this.mouseX = -1;
-		this.mouseY = -1;
-		this.mouseDownX = -1;
-		this.mouseDownY = -1;
-		this.isFocused = true;
-		this.keys = new boolean[68836];
+		this.currentState = new UserInputState();
+		this.prevState = new UserInputState();
 	}
 	
+	@Override
 	public void mouseDragged(MouseEvent e) {
-		this.mouseX = e.getX();
-		this.mouseY = e.getY();
-		Main.mouseAt(mouseX, mouseY);
+		currentState.adjustInputState(prevState);
+		currentState.updateMouseLocation(e.getX(), e.getY());
 	}
 
+	@Override
 	public void mouseMoved(MouseEvent e) {
-		this.mouseX = e.getX();
-		this.mouseY = e.getY();
-		Main.mouseAt(mouseX, mouseY);
+		currentState.adjustInputState(prevState);
+		currentState.updateMouseLocation(e.getX(), e.getY());
 	}
 
+	@Override
 	public void mouseClicked(MouseEvent e) {
+		// NOTE
+		// this probably won't be used
 	}
 
+	@Override
 	public void mouseEntered(MouseEvent e) {
-		
+		// NOTE
+		// not sure about this method
 	}
 
+	@Override
 	public void mouseExited(MouseEvent e) {
-		
+		// NOTE
+		// not sure about this method
 	}
 
+	@Override
 	public void mousePressed(MouseEvent e) {
 		this.mouseDownX = e.getX();
 		this.mouseDownY = e.getY();
@@ -67,6 +63,7 @@ public class InputHandler implements FocusListener, MouseListener, MouseMotionLi
 		}
 	}
 
+	@Override
 	public void mouseReleased(MouseEvent e) {
 		this.mouseUpX = e.getX();
 		this.mouseUpY = e.getY();
@@ -79,10 +76,12 @@ public class InputHandler implements FocusListener, MouseListener, MouseMotionLi
 		}
 	}
 
+	@Override
 	public void focusGained(FocusEvent e) {
 		 this.isFocused = true;
 	}
 
+	@Override
 	public void focusLost(FocusEvent e) {
 		 this.isFocused = false;
 	}

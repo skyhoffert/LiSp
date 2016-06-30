@@ -60,17 +60,20 @@ public class Main implements Runnable {
 		// make sure it is visible
 		frame.setVisible(true);
 		
-		//adding input
+		// adding input
 		input = new InputHandler();
 		frame.addKeyListener(input);
-		panel.addMouseListener(input);
-		panel.addMouseMotionListener(input);
+		// TODO
+		// panel.addMouseListener(input);
+		// panel.addMouseMotionListener(input);
 		frame.addFocusListener(input);
 		
-		//init stuff
-		System.out.println("Width: " +panel.getWidth());
-		System.out.println("Height: " +panel.getHeight());
+		// print variables to output
+		// TODO
+		// System.out.println("Width: " +panel.getWidth());
+		// System.out.println("Height: " +panel.getHeight());
 		
+		// default values
 		volume = -8;
 		running = true;
 		stage = new MainMenu();
@@ -88,8 +91,10 @@ public class Main implements Runnable {
 		System.exit(0);
 	}
 
-	//our main funtion
+	// our main funtion
 	public void run() {
+		// TODO
+		/*
 		// for frame rate etc
 		long lastTime = System.nanoTime(), lastTimer = System.currentTimeMillis(), now;
 		double nsPerTick = 1000000000.0 / 60.0, delta = 0;
@@ -129,30 +134,33 @@ public class Main implements Runnable {
 				ticks = 0;
 			}
 		}
+		*/
 
 		stop();
 	}
 	
+	// TODO
+	// fix drawing
+	/*
 	public static void draw(Graphics2D g){
 		if (stage != null){
 			stage.draw(g);
 		}
 	}
+	*/
 	
-	//mutators
+	// mutators
 	public static void setStage(Stage s){ stage = s; }
-	public static void LMBDown(int x, int y){ stage.LMBDown(x, y); }
-	public static void LMBUp(int x, int y){ stage.LMBUp(x, y); }
-	public static void RMBDown(int x, int y){ stage.RMBDown(x, y); }
-	public static void RMBUp(int x, int y){ stage.RMBUp(x, y); }
-	public static void mouseAt(int x, int y){ stage.mouseAt(x, y); }
-	public static void scrollWheelAt(int x){ stage.scrollWheelAt(x); }
-	public static void keyUp(int code){ stage.keyUp(code); }
-	public static void keyDown(int code){ stage.keyDown(code); }
 	
-	//getters
+	// getters
 	public static Stage getStage(){ return stage; }
+	// input states
+	public static UserInputState getCurrentInputState(){ return input.currentState; }
+	public static UserInputState getPreviousInputState(){ return input.prevState; }
 
+	// TODO
+	// this shouldn't be called 'render'
+	/*
 	private void render(){
 		//update input
 		update();
@@ -162,20 +170,7 @@ public class Main implements Runnable {
 		//draw
 		panel.drawing();
 	}
-	
-	//this just updates the inputs from the user
-	private void update(){
-		mouseX = input.getMouseX();
-		mouseY = input.getMouseY();
-		mouseDownX = input.getMouseDownX();
-		mouseDownY = input.getMouseDownY();
-		mouseUpX = input.getMouseUpX();
-		mouseUpY = input.getMouseUpY();
-		isFocused = input.getIsFocused();
-		isMouseDownLeft = input.getIsMouseDownLeft();
-		isMouseDownRight = input.getIsMouseDownRight();
-		keys = input.getKeys();
-	}
+	*/
 }
 
 

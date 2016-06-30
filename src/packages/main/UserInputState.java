@@ -64,6 +64,14 @@ public class UserInputState {
 		}
 		return false;
 	}
+	// update the mouse location
+	public boolean updateMouseLocation(int x, int y){
+		if (canBeUpdated){
+			mouseLocation.move(x, y);
+			return true;
+		}
+		return false;
+	}
 	
 	// update if the mouse is focused
 	public boolean updateIsFocused(boolean b){

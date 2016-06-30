@@ -10,34 +10,28 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
-// ***** NOTES *****
-//
-// TODO
-// calls to update should probably incorporate the boolean they return
-// though this shouldn't be a huge deal
-//
-// ***** NOTES *****
+/*
+ * LiSp engine
+ * 
+ * This class handles input from the user and send it to the main class,
+ * which sends it to everything in the stage
+ * 
+ */
 
 public class InputHandler implements FocusListener, MouseListener, MouseMotionListener, MouseWheelListener, KeyListener{
-	
-	// variables
-	UserInputState currentState, prevState;
 
 	public InputHandler(){
-		this.currentState = new UserInputState();
-		this.prevState = new UserInputState();
+		// do nothing
 	}
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		currentState.adjustInputState(prevState);
-		currentState.updateMouseLocation(e.getX(), e.getY());
+		Main.addInputChange(new UserInputChange(UserInputChange.ChangeType.MOUSE_MOVE, e.getX(), e.getY()));
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		currentState.adjustInputState(prevState);
-		currentState.updateMouseLocation(e.getX(), e.getY());
+		Main.addInputChange(new UserInputChange(UserInputChange.ChangeType.MOUSE_MOVE, e.getX(), e.getY()));
 	}
 
 	@Override
@@ -60,50 +54,44 @@ public class InputHandler implements FocusListener, MouseListener, MouseMotionLi
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		currentState.adjustInputState(prevState);
 		if (e.getButton() == MouseEvent.BUTTON1){
-			currentState.updateMouseButton(0, true);
+			Main.addInputChange(new UserInputChange(UserInputChange.ChangeType.MOUSE_BUTTON, 0, 1));
 		} else if (e.getButton() == MouseEvent.BUTTON2){
-			currentState.updateMouseButton(1, true);
+			Main.addInputChange(new UserInputChange(UserInputChange.ChangeType.MOUSE_BUTTON, 1, 1));
 		} else if (e.getButton() == MouseEvent.BUTTON3){
-			currentState.updateMouseButton(2, true);
+			Main.addInputChange(new UserInputChange(UserInputChange.ChangeType.MOUSE_BUTTON, 2, 1));
 		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		currentState.adjustInputState(prevState);
 		if (e.getButton() == MouseEvent.BUTTON1){
-			currentState.updateMouseButton(0, false);
+			Main.addInputChange(new UserInputChange(UserInputChange.ChangeType.MOUSE_BUTTON, 0, 0));
 		} else if (e.getButton() == MouseEvent.BUTTON2){
-			currentState.updateMouseButton(1, false);
+			Main.addInputChange(new UserInputChange(UserInputChange.ChangeType.MOUSE_BUTTON, 1, 0));
 		} else if (e.getButton() == MouseEvent.BUTTON3){
-			currentState.updateMouseButton(2, false);
+			Main.addInputChange(new UserInputChange(UserInputChange.ChangeType.MOUSE_BUTTON, 2, 0));
 		}
 	}
 
 	@Override
 	public void focusGained(FocusEvent e) {
-		currentState.adjustInputState(prevState);
-		currentState.updateIsFocused(true);
+		Main.addInputChange(new UserInputChange(UserInputChange.ChangeType.MOUSE_FOCUS, 1, Integer.MAX_VALUE));
 	}
 
 	@Override
 	public void focusLost(FocusEvent e) {
-		currentState.adjustInputState(prevState);
-		currentState.updateIsFocused(false);
+		Main.addInputChange(new UserInputChange(UserInputChange.ChangeType.MOUSE_FOCUS, 0, Integer.MAX_VALUE));
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		currentState.adjustInputState(prevState);
-		currentState.updateKey(e.getKeyCode(), true);
+		Main.addInputChange(new UserInputChange(UserInputChange.ChangeType.KEY, e.getKeyCode(), 1));
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		currentState.adjustInputState(prevState);
-		currentState.updateKey(e.getKeyCode(), false);
+		Main.addInputChange(new UserInputChange(UserInputChange.ChangeType.KEY, e.getKeyCode(), 0));
 	}
 
 	@Override
@@ -115,7 +103,6 @@ public class InputHandler implements FocusListener, MouseListener, MouseMotionLi
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		// scroll wheel moves + or - 1
-		currentState.adjustInputState(prevState);
-		currentState.updateMouseScrollWheel(e.getScrollAmount());		
+		Main.addInputChange(new UserInputChange(UserInputChange.ChangeType.KEY, e.getScrollAmount(), Integer.MAX_VALUE));		
 	}
 }

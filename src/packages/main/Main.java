@@ -2,6 +2,8 @@ package packages.main;
 
 import java.io.File;
 import java.util.Scanner;
+import java.util.Stack;
+
 import javax.swing.JFrame;
 import packages.stage.MainMenu;
 import packages.stage.Stage;
@@ -20,6 +22,8 @@ public class Main implements Runnable {
 	
 	// global game variables
 	public static int volume;
+	
+	private static Stack<UserInputChange> inputChangeStack;
 		
 	// privates
 	private static Stage stage;
@@ -73,6 +77,7 @@ public class Main implements Runnable {
 		volume = -8;
 		running = true;
 		stage = new MainMenu();
+		this.inputChangeStack = new Stack<UserInputChange>();
 	}
 	
 	public static void main(String Args[]){
@@ -151,11 +156,30 @@ public class Main implements Runnable {
 	// getters
 	public static Stage getStage(){ return stage; }
 	// input states
-	public static UserInputState getCurrentInputState(){ return input.currentState; }
-	public static UserInputState getPreviousInputState(){ return input.prevState; }
+	public static void addInputChange(UserInputChange inputChange){
+		inputChangeStack.add(inputChange);
+	}
 
 	// TODO
+	// first step is process input
+	private void processInput(){
+		// something like
+		// while !stack.isempty
+		// 		stage.processinput
+		//		// this will call entities.processinput
+		//		stack.pop
+		//
+	}
+	
+	// TODO
+	// second step is actions
+	private void act(){
+		// stage.act
+	}
+	
+	// TODO
 	// this shouldn't be called 'render'
+	// third step is render
 	/*
 	private void render(){
 		//update input
